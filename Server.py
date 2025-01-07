@@ -27,7 +27,7 @@ class Thread(QThread):
 
 class TCP():
     def __init__(self):
-        self.esp32_ip = '192.168.**.**'  # ESP32의 IP 주소
+        self.esp32_ip = '192.168.**.**'  # address of ESP32
         self.esp32_port = 8080 
         self.message = None
 
@@ -35,7 +35,7 @@ class TCP():
         match(msg):
             case "connect":
                 self.message = "11\n"
-            case "soyoung": # user_name
+            case "<your name>": # write your name
                 self.message = "21\n"
             case "drive":
                 self.message = "31\n"
@@ -86,12 +86,12 @@ class SeverSocket(QThread):
             try:
                 self.client_socket, _ = self.server_socket.accept()
 
-            # 클라이언트로부터 데이터 수신
+            # get data from clients
                 data = self.client_socket.recv(1024).decode('utf-8')
                 self.update.emit(data)
             
             except:
-                # 클라이언트 연결 종료
+                # client connect terminated
                 self.client_socket.close()
 
     def stop(self):
